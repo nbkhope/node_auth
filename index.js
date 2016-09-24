@@ -6,11 +6,15 @@ const morgan = require('morgan');
 
 // App Setup
 const app = express();
+const router = require('./router');
 
 // For logging
 app.use(morgan('combined'));
 // Parse incoming requests as though they were json
 app.use(bodyParser.json({ type: '*/*' }));
+
+// Pass the app to router so it can define the routes
+router(app);
 
 // Server Setup
 const PORT = process.env.PORT || 3090;
