@@ -10,6 +10,14 @@ Install all package dependencies:
 npm install
 ```
 
+Create the file **config.js** in the root directory of the application and include a random string of characters as the secret property:
+
+```
+module.exports = {
+  secret: 'YourSecretStringOfCharacters'
+};
+```
+
 Run the server using
 
 ```
