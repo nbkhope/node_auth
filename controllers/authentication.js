@@ -1,4 +1,17 @@
+const jwt = require('jwt-simple');
 const User = require('../models/user');
+const config = require('../config');
+
+function tokenForUser(user) {
+  const timestamp = new Date().getTime(); // or Date.now() (maybe faster?)
+  // generate a token taking the user id and the secret string
+  // 'sub' means subject
+  // 'iat' means issued at (time)
+  return jwt.encode({
+    sub: user.id,
+    iat: timestamp
+  }, config.secret);
+}
 
 // Authentications Controller
 exports.signup = function(req, res, next) {
@@ -37,7 +50,8 @@ exports.signup = function(req, res, next) {
 
       // Send a response indicating user was created successfully
       //res.json(user);
-      res.json({ success: true });
+      //res.json({ success: true });
+      res.json({ token: tokenForUser(user) })
     });
   });
 };
