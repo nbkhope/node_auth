@@ -5,6 +5,7 @@ const passport = require('passport');
 
 // Middleware interceptor
 const requireAuth = passport.authenticate('jwt', { session: false });
+const requireSignin = passport.authenticate('local', { session: false });
 
 /**
  * Define all the routes here
@@ -20,4 +21,6 @@ module.exports = function(app) {
   });
 
   app.post('/signup', Authentication.signup);
+
+  app.post('/signin', requireSignin, Authentication.signin);
 };

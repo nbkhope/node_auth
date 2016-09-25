@@ -55,3 +55,11 @@ exports.signup = function(req, res, next) {
     });
   });
 };
+
+exports.signin = function(req, res, next) {
+  // By this point, user has already had their email/password authenticated
+  // We need only give them their token
+
+  // passport makes user available through req object
+  res.send({ token: tokenForUser(req.user) });
+};
