@@ -32,6 +32,19 @@ userSchema.pre('save', function(next) {
   });
 });
 
+/**
+ * candidatePassword is the password user givesn in an attempt to sign in
+ */
+userSchema.methods.comparePassword = function(candidatePassword, callback) {
+  // bcrypt internally takes the salt and encrypts given password and compares it
+  // with existing encrypted one
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) { return callback(err); }
+
+    callback(null, isMatch);
+  });
+};
+
 // Create the model class
 const ModelClass = mongoose.model('user', userSchema);
 
