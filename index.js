@@ -4,6 +4,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 // Database Setup
 mongoose.connect('mongodb://localhost:node_auth/node_auth');
@@ -14,6 +15,8 @@ const router = require('./router');
 
 // For logging
 app.use(morgan('combined'));
+// allow cors
+app.use(cors());
 // Parse incoming requests as though they were json
 app.use(bodyParser.json({ type: '*/*' }));
 
